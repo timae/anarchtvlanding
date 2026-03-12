@@ -369,6 +369,47 @@
       transition: opacity .3s;
     }
 
+    /* ── PLATFORMS ── */
+    .platforms-section { padding: 80px 24px; }
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px; margin-top: 52px; max-width: 1080px; margin-left: auto; margin-right: auto;
+    }
+    .platform-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      transition: border-color .2s; position: relative;
+    }
+    .platform-card:hover { border-color: rgba(232,83,79,.35); }
+    .platform-card--featured {
+      border-color: rgba(232,83,79,.28);
+      background: linear-gradient(145deg, var(--surface) 0%, rgba(232,83,79,.05) 100%);
+    }
+    .platform-header {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+    }
+    .platform-icon { font-size: 28px; line-height: 1; }
+    .platform-name { font-size: 18px; font-weight: 800; margin-bottom: 2px; }
+    .platform-version { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .platform-features {
+      list-style: none; display: flex; flex-direction: column; gap: 9px;
+    }
+    .platform-features li {
+      display: flex; align-items: flex-start; gap: 9px;
+      font-size: 13px; color: var(--muted); line-height: 1.5;
+    }
+    .platform-features li::before {
+      content: "✦"; color: var(--accent); font-size: 9px; margin-top: 4px; flex-shrink: 0;
+    }
+    .platform-features li strong { color: var(--text); font-weight: 600; }
+    .platform-badge {
+      position: absolute; top: 16px; right: 16px;
+      background: rgba(232,83,79,.13); border: 1px solid rgba(232,83,79,.28);
+      color: var(--accent); border-radius: 20px;
+      padding: 3px 10px; font-size: 11px; font-weight: 600; letter-spacing: .3px;
+    }
+
     /* ── FEATURES GRID ── */
     .features-section { padding: 80px 24px; }
     .features-grid {
@@ -497,9 +538,9 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">✦ Available on iPhone &amp; iPad</div>
+  <div class="hero-badge">✦ Available on iPhone, iPad, Apple TV &amp; Mac</div>
   <h1>Your IPTV,<br /><span>Your Way.</span></h1>
-  <p>Stream live TV, movies, and series from your own M3U playlist or Xtream Codes account — beautifully designed, $2 once, yours forever.</p>
+  <p>Stream live TV, movies, and series from your own M3U or Xtream Codes source — across all your Apple devices. $2 once, yours forever.</p>
   <div class="hero-actions">
     <a href="#download" class="btn-primary" id="download">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.09998 22C7.78998 22.05 6.79998 20.68 5.95998 19.47C4.24998 17 2.93998 12.45 4.69998 9.39C5.56998 7.87 7.12998 6.91 8.81998 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/></svg>
@@ -537,11 +578,13 @@
   </div>
 
   <div class="player-pills">
-    <div class="pill"><span class="pill-dot"></span> AVKit + VLC dual engine</div>
+    <div class="pill"><span class="pill-dot"></span> VLC + AVPlayer dual engine</div>
     <div class="pill"><span class="pill-dot"></span> Live EPG progress bar</div>
     <div class="pill"><span class="pill-dot"></span> Audio track selector</div>
     <div class="pill"><span class="pill-dot"></span> AirPlay &amp; Picture in Picture</div>
     <div class="pill"><span class="pill-dot"></span> Smart reconnect on stall</div>
+    <div class="pill"><span class="pill-dot"></span> Lock screen Now Playing</div>
+    <div class="pill"><span class="pill-dot"></span> VOD scrubber + skip ±30 s</div>
   </div>
 </section>
 
@@ -562,8 +605,9 @@
       <p>The Home screen shows what you've been watching and what's trending — so you always have something to watch.</p>
       <ul class="row-bullets">
         <li><strong>Continue Watching</strong> — jump back in from exactly where you left off</li>
-        <li><strong>Trending Movies</strong> — weekly TMDB charts matched against your library</li>
-        <li><strong>Trending TV Shows</strong> — series your provider actually carries, highlighted</li>
+        <li><strong>Trending Movies &amp; TV Shows</strong> — weekly TMDB charts matched against your library</li>
+        <li><strong>Favourite Channels rail</strong> — with live EPG "now playing" and a Mini TV Guide strip</li>
+        <li><strong>Watch Alerts</strong> — keyword-based notifications for live events (e.g. "Champions League")</li>
         <li><strong>Poster art</strong> from TMDB for a cinematic browsing experience</li>
       </ul>
     </div>
@@ -707,6 +751,78 @@
   })();
 </script>
 
+<!-- PLATFORMS -->
+<section class="platforms-section" id="platforms">
+  <p class="section-label">Platforms</p>
+  <h2 class="section-title">One app. Every Apple screen.</h2>
+  <p class="section-sub">Native builds for iPhone, iPad, Apple TV, and Mac — each optimised for its form factor.</p>
+
+  <div class="platforms-grid">
+
+    <!-- iOS -->
+    <div class="platform-card">
+      <div class="platform-header">
+        <span class="platform-icon">📱</span>
+        <div>
+          <div class="platform-name">iOS</div>
+          <div class="platform-version">iPhone &amp; iPad · v1.2</div>
+        </div>
+      </div>
+      <ul class="platform-features">
+        <li>Live TV with category grid, source filter &amp; drag-to-reorder</li>
+        <li>72-hour EPG timeline with program reminders</li>
+        <li>Home: Trending, Favourites rail, Continue Watching</li>
+        <li><strong>Watch Alerts</strong> — keyword-based live event notifications</li>
+        <li>Global search across channels, movies &amp; series (FTS5)</li>
+        <li>VLC + AVPlayer dual engine — VLC default</li>
+        <li>PiP, AirPlay, Lock Screen Now Playing</li>
+        <li>Overseerr / Jellyseerr server integration</li>
+      </ul>
+    </div>
+
+    <!-- tvOS -->
+    <div class="platform-card platform-card--featured">
+      <div class="platform-badge">tvOS Exclusive</div>
+      <div class="platform-header">
+        <span class="platform-icon">📺</span>
+        <div>
+          <div class="platform-name">Apple TV</div>
+          <div class="platform-version">tvOS · v1.2</div>
+        </div>
+      </div>
+      <ul class="platform-features">
+        <li>Everything on iOS, focus-engine navigation throughout</li>
+        <li>10-foot UI — large poster cards, high-contrast typography</li>
+        <li>Full-screen player with tvOS-native controls</li>
+        <li>Category reorder via tvOS focus + move</li>
+        <li><strong>Timeshift DVR</strong> — coming soon</li>
+      </ul>
+    </div>
+
+    <!-- macOS -->
+    <div class="platform-card">
+      <div class="platform-header">
+        <span class="platform-icon">🖥</span>
+        <div>
+          <div class="platform-name">macOS</div>
+          <div class="platform-version">Native (not Catalyst) · v1.2</div>
+        </div>
+      </div>
+      <ul class="platform-features">
+        <li>NavigationSplitView sidebar — always visible, never auto-hides</li>
+        <li>⌘, Preferences window</li>
+        <li>Double-click or Return to play; context menus instead of swipe</li>
+        <li>Drag-and-drop category reordering in Live TV</li>
+        <li>Full feature parity with iOS (Live TV, Library, EPG, Search…)</li>
+        <li>AVPlayerView + VLCKit bundled, switchable in Settings</li>
+        <li>AirPlay via menu bar route picker</li>
+        <li>PiP in a floating window</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
 <!-- FEATURES GRID -->
 <section class="features-section" id="features">
   <p class="section-label">Everything else</p>
@@ -717,7 +833,7 @@
     <div class="feature-card">
       <div class="feature-icon">⚙️</div>
       <h3>Dual Player Engine</h3>
-      <p>Switch between Apple AVKit and the VLC backend per stream. Auto mode picks VLC for 4K / UHD titles, AVKit for everything else.</p>
+      <p>VLC is the default on iOS and Apple TV; AVPlayerView on macOS. Switch per stream in Settings. Up to 5 auto-retries with exponential backoff.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🔄</div>
@@ -742,7 +858,22 @@
     <div class="feature-card">
       <div class="feature-icon">🔒</div>
       <h3>Multiple Sources</h3>
-      <p>Add M3U playlists or Xtream Codes accounts. Passwords stored securely in the iOS Keychain — never in plain text.</p>
+      <p>Add M3U playlists or Xtream Codes accounts. Passwords stored in the system Keychain. Per-source refresh interval: manual, 6h, 12h, daily, or weekly.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔔</div>
+      <h3>Watch Alerts</h3>
+      <p>Define keywords (e.g. "Champions League") and get a push notification whenever a matching live event appears in your EPG — so you never miss it.</p>
+    </div>
+    <div class="feature-card" style="opacity:.55; pointer-events:none;">
+      <div class="feature-icon">⏮️</div>
+      <h3>Timeshift DVR <span style="font-size:11px;font-weight:600;color:var(--accent);background:rgba(232,83,79,.12);border:1px solid rgba(232,83,79,.25);border-radius:20px;padding:2px 8px;vertical-align:middle;">Coming Soon</span></h3>
+      <p>Pause, rewind, and scrub back through live TV on Apple TV. Recording to a local buffer — in the works.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎬</div>
+      <h3>Overseerr Integration</h3>
+      <p>Connect your Overseerr or Jellyseerr server to request movies and shows directly from the AnarchTV Library — without switching apps.</p>
     </div>
   </div>
 </section>
@@ -758,7 +889,7 @@
       <div class="step-line"></div>
       <div class="step-body">
         <h3>Download AnarchTV</h3>
-        <p>Get it from the App Store for $2 — one-time, no subscription — on any iPhone or iPad running iOS 17 or later.</p>
+        <p>Get it from the App Store for $2 — one-time, no subscription — on iPhone, iPad, Apple TV, or Mac running iOS / tvOS / macOS 17 or later.</p>
       </div>
     </div>
     <div class="step">
@@ -813,7 +944,7 @@
       <div class="privacy-icon">🔑</div>
       <div>
         <h4>Keychain for passwords</h4>
-        <p>Xtream Codes passwords are stored in the iOS Keychain. They are never sent to any server other than your IPTV provider.</p>
+        <p>Xtream Codes passwords are stored in the system Keychain. They are never sent to any server other than your IPTV provider.</p>
       </div>
     </div>
     <div class="privacy-item">
@@ -838,7 +969,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <span>© 2025 AnarchTV. All rights reserved.</span>
+  <span>© 2026 AnarchTV. All rights reserved.</span>
   <div class="footer-links">
     <a href="#privacy">Privacy Policy</a>
     <a href="mailto:support@anarchtv.app">Support</a>
